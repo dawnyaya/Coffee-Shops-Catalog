@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<!-- Title -->
+<h1> New Menu Item </h1>
+
+<!-- Print flash message -->
+<div class = 'flash'>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}    
+      <ul>
+      {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- Print all coffee shops name -->
+<form action="{{url_for('newMenuItem', coffee_shop_id=coffee_shop_id )}}" method = 'POST'>
+  <p>Name:</p>
+  <input type='text' size='30' name='name'>
+  <p>Price:</p>
+  <input type='text' size='10' name='price'>
+  <p>Description:</p>
+  <input type='text' size ='100' name='description'>
+  <p>Category:</p>
+  <input type='text' size ='100' name='category'>
+  <input type='submit' value='Create'>
+</form>
+
+<!-- Cancel redirection -->
+<a href = "{{ url_for('Menu_coffee_shop',coffee_shop_id = coffee_shop_id)}}"> Cancel </a>
+
+{% endblock %}

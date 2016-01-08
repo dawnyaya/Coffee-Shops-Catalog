@@ -1,0 +1,54 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<!-- Title -->
+<h1>{{coffee_shop.name}}</h1>
+
+<!-- Print flash message -->
+<div class = 'flash'>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}    
+      <ul>
+      {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- User can see this page only if he/she successfully login and have permission to this shop -->
+<a href= "{{url_for('newMenuItem',coffee_shop_id = coffee_shop.id)}}">Create a New Menu Item</a>
+
+<!-- Print all menus -->
+{% if items !=[] %}	
+  <div class="row">
+  <div class="col-md-1"></div>
+  {% for category in categories.keys() %}
+  <div class="col-md-3">
+  <h2>{{category}}</h2>
+    {% for i in items %}
+      {% if i.category == category %}
+        <div class="menu-item">
+          <h4>{{i.name}}</h4>
+          <p>{{i.description}}</p>
+          <p class="menu-price">{{i.price}}</p>
+          <a href='{{url_for('editMenuItem', coffee_shop_id = i.coffee_id, menu_id = i.id) }}'>Edit</a>
+          <a href = '{{url_for('deleteMenuItem', coffee_shop_id = i.coffee_id, menu_id = i.id ) }}'>Delete</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+ <div class="col-md-1"></div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+<!--
+
+</br>
+
+-->

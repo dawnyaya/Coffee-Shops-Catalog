@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<!-- Title -->
+<h1>Coffee Shops</h1>
+
+<!-- Print flash message -->
+<div class = 'flash'>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}    
+      <ul>
+      {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- User can see this page only if he/she successfully login -->
+<a href="{{url_for('new_coffee_shop')}}" > <h3> Create a New Coffee Shop </h3> </a>
+
+<!-- Print all coffee shops name -->
+{% for coffee_shop in coffee_shops %}
+<a href = "{{url_for('Menu_coffee_shop', coffee_shop_id = coffee_shop.id)}}"> <h3>{{coffee_shop.name}}</h3></a>
+<p> <a href = "{{url_for('delete_coffee_shop',coffee_shop_id = coffee_shop.id)}}">Delete Shop </a> </p>
+<p> <a href = "{{url_for('edit_coffee_shop',coffee_shop_id = coffee_shop.id)}}">Edit Shop </a> </p>
+{% endfor %}
+
+{% endblock %}

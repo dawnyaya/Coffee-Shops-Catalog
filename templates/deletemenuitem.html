@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<!-- Title -->
+<h3> Are you sure you want to delete {{i.name}}? </h3>
+
+<!-- Print flash message -->
+<div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}    
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Main form for post request -->
+<form action="{{ url_for('deleteMenuItem',coffee_shop_id=coffee_shop_id, menu_id=menu_id)}}" method = 'post'>
+<input type='submit', value = 'Delete'>
+
+
+</form>
+
+<!-- Cancel redirection -->
+<a href = "{{ url_for('Menu_coffee_shop',coffee_shop_id=coffee_shop_id)}}"> Cancel </a>
+
+{% endblock %}
